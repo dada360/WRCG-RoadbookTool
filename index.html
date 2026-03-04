@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WRCG 路书制作工具</title>
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/timeline.css" />
+  <link rel="stylesheet" href="css/context-menu.css" />
+</head>
+<body>
+  <div class="app">
+    <div class="window-chrome">
+      <div class="window-controls" aria-hidden="true">
+        <span class="dot dot-close"></span>
+        <span class="dot dot-min"></span>
+        <span class="dot dot-max"></span>
+      </div>
+      <div class="window-title">WRCG 路书制作工具</div>
+      <div class="window-actions">
+        <button id="openCreateDialogBtn" type="button">创建路书</button>
+        <button id="importJsonBtn" type="button">导入 JSON</button>
+        <button id="exportJsonBtn" type="button">导出 JSON</button>
+        <input id="importJsonInput" class="hidden" type="file" accept=".json,application/json" />
+        <div class="window-mode">Desktop Mode</div>
+      </div>
+    </div>
+
+    <section class="status-panel">
+      <div>路书名称：<strong id="roadbookNameText">--</strong></div>
+      <div>起始距离：<strong id="startDistanceText">--</strong></div>
+      <div>当前距离：<strong id="currentDistanceText">--</strong></div>
+      <div>状态：<strong id="playStatusText">未创建</strong></div>
+      <div>选中标记位置：<strong id="selectedMarkerDistanceText">--</strong></div>
+    </section>
+
+    <section class="timeline-section">
+      <div id="timelineViewport" class="timeline-viewport" aria-label="可拖动时间轴">
+        <canvas id="timelineCanvas" class="timeline-canvas"></canvas>
+        <div id="emptyTrackHint" class="empty-track-hint">长按右键 0.1 秒打开圆盘，移动选择后松开右键创建标记</div>
+      </div>
+
+    </section>
+
+    <footer class="status-strip">
+      <span>聚焦新建｜Ctrl+O 导入｜Ctrl+S 导出｜Space 播放/暂停</span>
+      <span>操作：中键平移｜滚轮缩放｜右键长按加标记</span>
+    </footer>
+
+  </div>
+
+  <div id="contextMenu" class="context-menu hidden" role="menu" aria-label="圆盘标记选择器">
+    <canvas id="menuCanvas" class="menu-canvas"></canvas>
+  </div>
+
+  <div id="noticeBar" class="notice-bar hidden" role="status" aria-live="polite"></div>
+
+  <div id="createDialog" class="dialog-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="createDialogTitle">
+    <div class="dialog-panel">
+      <div class="dialog-header">
+        <strong id="createDialogTitle">创建路书</strong>
+        <button id="createDialogCloseBtn" class="dialog-close-btn" type="button" aria-label="关闭">×</button>
+      </div>
+      <div class="dialog-body">
+        <label for="roadbookNameInput">路书名称</label>
+        <input id="roadbookNameInput" type="text" maxlength="40" placeholder="例如 瑞典站 SS1" />
+        <label for="startDistanceInput">起始距离（米）</label>
+        <input id="startDistanceInput" type="number" min="0.1" step="0.1" placeholder="例如 7801.0" />
+      </div>
+      <div class="dialog-actions">
+        <button id="createDialogCancelBtn" type="button">取消</button>
+        <button id="createBtn" type="button">创建路书</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+.context-menu {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1100;
+  width: 210px;
+  height: 210px;
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  pointer-events: none;
+  user-select: none;
+  overflow: visible;
+  will-change: transform, opacity;
+}
+
+.context-menu:not(.hidden) {
+  animation: radial-menu-pop 0.16s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.menu-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.context-menu:not(.hidden) .menu-canvas {
+  animation: radial-menu-fade 0.2s ease-out;
+}
+
+@keyframes radial-menu-pop {
+  0% {
+    transform: translate(-50%, -50%) scale(0.86);
+    opacity: 0;
+  }
+
+  70% {
+    transform: translate(-50%, -50%) scale(1.03);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes radial-menu-fade {
+  0% {
+    filter: saturate(0.9);
+  }
+
+  100% {
+    filter: saturate(1);
+  }
+}
